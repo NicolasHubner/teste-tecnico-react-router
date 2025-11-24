@@ -127,7 +127,7 @@ npm install
 npm run dev
 
 # Rodar testes (após configurar)
-npm test
+npm run test
 
 # Build de produção
 npm run build
@@ -162,6 +162,8 @@ Se você quiser demonstrar conhecimento adicional, pode implementar:
 ---
 
 ## Dúvidas
+
+Utilize a documentação do [React Router](https://reactrouter.com/home) em caso de dúvidas.
 
 Se encontrar algum bloqueio técnico ou dúvida sobre o escopo, documente no arquivo SOLUCAO.md suas considerações e decisões tomadas.
 
