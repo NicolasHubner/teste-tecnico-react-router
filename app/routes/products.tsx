@@ -1,16 +1,12 @@
-import { useLoaderData } from 'react-router'
-import type { Route } from './+types/products'
-import ProductCard from '~/components/ProductCard'
-
 /**
- * ⚠️ TODO - TAREFA 2: Ajustar a rota client
+ * ⚠️ TODO - TAREFA 3: Ajustar a rota client
  *
  * Complete esta rota client:
  * - Use o hook correto do React Router para obter dados do loader
  * - Renderize a lista de produtos usando o componente ProductCard
  * - Trate o caso de lista vazia
  *
- * ⚠️ TODO - TAREFA 4: Melhorar acessibilidade (sutil)
+ * ⚠️ TODO - TAREFA 5: Melhorar acessibilidade (sutil)
  * - Verifique se está usando elementos semânticos corretos
  * - Adicione ARIA labels onde apropriado
  * - Pense em navegação por teclado

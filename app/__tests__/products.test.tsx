@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import ProductCard from '~/components/ProductCard'
 
 /**
- * ⚠️ TODO - TAREFA 5: Criar testes básicos (descrição sutil)
+ * ⚠️ TODO - TAREFA 6: Criar testes básicos (descrição sutil)
  *
  * Implemente pelo menos 1-2 testes simples aqui:
  * - Teste de renderização do ProductCard
