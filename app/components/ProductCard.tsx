@@ -1,16 +1,16 @@
 /**
- * ⚠️ TODO - TAREFA 8: Finalizar componente ProductCard
+ * ⚠️ TODO - TAREFA 9: Finalizar componente ProductCard
  *
  * Complete este componente:
  * - Defina a interface de props corretamente (use o tipo Product)
  * - Implemente a renderização de todas as informações do produto
  * - Adicione interatividade básica (ex: botão de adicionar ao carrinho)
  *
- * ⚠️ TODO - TAREFA 3: Implementar estilização
+ * ⚠️ TODO - TAREFA 4: Implementar estilização
  * - As classes CSS já estão definidas, mas faltam os estilos
  * - Adicione estilos usando Tailwind ou CSS customizado
  *
- * ⚠️ TODO - TAREFA 4: Melhorar acessibilidade (sutil)
+ * ⚠️ TODO - TAREFA 5: Melhorar acessibilidade (sutil)
  * - Use elementos semânticos
  * - Adicione ARIA labels em botões e elementos interativos
  */

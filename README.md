@@ -34,56 +34,64 @@ app/
 
 Complete todas as 8 tarefas abaixo:
 
-### 1. Completar a rota server (`app/routes/api/products.ts`)
+### 1. Integração com API Externa
+**🔍 ATENÇÃO:** Há um comentário `TODO` indicando onde implementar a busca de dados.
+
+- Integre a API Pública [Faker Store Api](https://fakestoreapi.com/docs) ao sistema
+- Implemente a busca de produtos `/products` no arquivo `services/api.ts`
+- Utilize a fetchAPI para integração
+- Reescreva a tipagem para o formato adequado para o retorno da API
+
+### 2. Completar a rota server (`app/routes/api/products.ts`)
 **🔍 ATENÇÃO:** Há um comentário `TODO` indicando onde implementar a busca de dados.
 
 - Implemente a função loader que busca produtos da API
 - Use o serviço já fornecido em `services/api.ts`
 - Retorne os dados no formato adequado para o React Router
 
-### 2. Ajustar a rota client (`app/routes/products.tsx`)
+### 3. Ajustar a rota client (`app/routes/products.tsx`)
 **🔍 ATENÇÃO:** Há comentários `TODO` indicando ajustes necessários.
 
 - Consuma os dados fornecidos pelo loader da rota server
 - Utilize o hook apropriado do React Router
 - Renderize a lista de produtos usando o componente ProductCard
 
-### 3. Implementar estilização simples
+### 4. Implementar estilização simples
 **🔍 ATENÇÃO:** Componentes possuem classNames mas faltam estilos.
 
 - Adicione estilos CSS básicos ao projeto (pode usar Tailwind que já está configurado)
 - Foque em: layout de grid/lista, cards de produto, responsividade básica
 - Pode usar CSS modules, Tailwind ou CSS puro
 
-### 4. Melhorar acessibilidade
+### 5. Melhorar acessibilidade
 **🔍 ATENÇÃO:** Revise elementos interativos e estrutura semântica.
 
 - Utilize elementos HTML semânticos apropriados
 - Adicione atributos ARIA onde necessário
 - Garanta que leitores de tela consigam navegar adequadamente
 
-### 5. Criar testes básicos
+### 6. Criar testes básicos
 **🔍 ATENÇÃO:** Arquivo de teste está no diretório `__tests__/`.
 
 - Implemente pelo menos 1-2 testes simples
 - Teste renderização de componentes ou comportamento básico
 - Configure e use a biblioteca de testes (Vitest recomendado)
 
-### 6. Revisar separação server/client
+### 7. Revisar separação server/client
 **🔍 ATENÇÃO:** Verifique se as responsabilidades estão corretas.
 
 - Confirme que busca de dados está na rota server (loader)
 - Confirme que renderização e interação estão na rota client
 - Ajuste se necessário
 
-### 7. Implementar tratamento de erro na rota server
+### 8. Implementar tratamento de erro na rota server
 **🔍 ATENÇÃO:** Há comentário `TODO` sobre error handling.
 
 - Adicione try/catch apropriado na função loader
 - Retorne erro de forma que o React Router possa lidar
 - Use o ErrorBoundary já fornecido
 
-### 8. Finalizar componente ProductCard
+### 9. Finalizar componente ProductCard
 **🔍 ATENÇÃO:** O componente `ProductCard.tsx` está incompleto.
 
 - Complete as props e tipagem TypeScript
