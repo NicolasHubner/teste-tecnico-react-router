@@ -15,35 +15,51 @@
  * - Adicione ARIA labels em botões e elementos interativos
  */
 
+import type { Product } from '~/types/Product';
+
 // TODO: Definir interface de props
 interface ProductCardProps {
-  // Adicione as propriedades necessárias aqui
-  // Dica: id, name, price, description, category, inStock
+	// Adicione as propriedades necessárias aqui
+	// Dica: id, name, price, description, category, inStock
+	product: Product;
 }
 
-export default function ProductCard(/* props aqui */) {
-  // TODO: Desestruturar props
+export default function ProductCard({ product }: ProductCardProps) {
+	// TODO: Desestruturar props
 
-  const handleAddToCart = () => {
-    // Placeholder para adicionar ao carrinho
-    console.log('Produto adicionado ao carrinho')
-  }
+	const { id, name, price, description, category, inStock } = product;
 
-  return (
-    <div className="product-card">
-      {/* TODO: Implementar conteúdo do card */}
-      {/* Deve exibir: nome, preço, descrição, categoria, status de estoque */}
-      <h3 className="product-name">Nome do Produto</h3>
-      <p className="product-price">R$ 0,00</p>
-      <p className="product-description">Descrição do produto</p>
-      <span className="product-category">Categoria</span>
-      <div className="product-stock">Em estoque</div>
-      <button
-        className="add-to-cart-button"
-        onClick={handleAddToCart}
-      >
-        Adicionar ao Carrinho
-      </button>
-    </div>
-  )
+	const handleAddToCart = () => {
+		// Placeholder para adicionar ao carrinho
+		console.log(`Produto ${name} (ID: ${id}) adicionado ao carrinho`);
+	};
+
+	const stockStatus = inStock ? 'Em estoque' : 'Fora de estoque';
+	const buttonLabel = inStock ? 'Adicionar ao Carrinho' : 'Produto indisponível';
+	const buttonDisabled = !inStock;
+	const stockButtonClass = inStock ? 'in-stock' : 'out-of-stock';
+
+	return (
+		<article
+			className='product-card'
+			aria-labelledby={`product-name-${id}`}
+			aria-describedby={`product-description-${id}`}
+			aria-disabled={buttonDisabled}
+			role='article'>
+			{/* TODO: Implementar conteúdo do card */}
+			{/* Deve exibir: nome, preço, descrição, categoria, status de estoque */}
+			<header>
+				<h3 className='product-name'>Nome do Produto</h3>
+			</header>
+			<p className='product-price'>R$ 0,00</p>
+			<p className='product-description'>Descrição do produto</p>
+			<span className='product-category'>Categoria</span>
+			<div className='product-stock'>Em estoque</div>
+			<button
+				className='add-to-cart-button'
+				onClick={handleAddToCart}>
+				Adicionar ao Carrinho
+			</button>
+		</article>
+	);
 }
