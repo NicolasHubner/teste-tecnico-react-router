@@ -17,14 +17,18 @@ import type { Product } from '~/types/Product';
 
 interface LoaderData {
 	products: Product[];
-	error?: string;
+	error?: string | undefined;
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	// TODO: Implementar busca de dados aqui
 	// Dica: use fetchProducts() e adicione tratamento de erro
 
-	const products = await fetchProducts();
-
-	return { products };
+	try {
+		const products = await fetchProducts();
+		return { products, error: undefined };
+	} catch (error) {
+		console.error('Erro ao buscar produtos:', error);
+		return { products: [], error: 'Falha ao buscar produtos. Tente novamente mais tarde.' };
+	}
 }
