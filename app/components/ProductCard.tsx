@@ -17,49 +17,84 @@
 
 import type { Product } from '~/types/Product';
 
-// TODO: Definir interface de props
 interface ProductCardProps {
-	// Adicione as propriedades necessárias aqui
-	// Dica: id, name, price, description, category, inStock
 	product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-	// TODO: Desestruturar props
-
-	const { id, name, price, description, category, inStock } = product;
-
+	const { id, name, price, description, category, inStock, image } = product;
 	const handleAddToCart = () => {
-		// Placeholder para adicionar ao carrinho
 		console.log(`Produto ${name} (ID: ${id}) adicionado ao carrinho`);
 	};
 
-	const stockStatus = inStock ? 'Em estoque' : 'Fora de estoque';
+	const formattedPrice = new Intl.NumberFormat('pt-BR', {
+		style: 'currency',
+		currency: 'BRL',
+	}).format(price);
+
+	const stockStatus = inStock ? 'Em estoque' : 'Esgotado';
 	const buttonLabel = inStock ? 'Adicionar ao Carrinho' : 'Produto indisponível';
-	const buttonDisabled = !inStock;
-	const stockButtonClass = inStock ? 'in-stock' : 'out-of-stock';
+
+	const stockStateClass = inStock ? 'stock-in' : 'stock-out';
+	const buttonStateClass = inStock ? 'button-active' : 'button-disabled';
 
 	return (
 		<article
 			className='product-card'
 			aria-labelledby={`product-name-${id}`}
-			aria-describedby={`product-description-${id}`}
-			aria-disabled={buttonDisabled}
-			role='article'>
-			{/* TODO: Implementar conteúdo do card */}
-			{/* Deve exibir: nome, preço, descrição, categoria, status de estoque */}
-			<header>
-				<h3 className='product-name'>Nome do Produto</h3>
+			aria-describedby={`product-description-${id}`}>
+			{image && (
+				<div className='product-image-container'>
+					<img
+						src={image}
+						alt={`Imagem de ${name}`}
+						className='product-image'
+						loading='lazy'
+					/>
+				</div>
+			)}
+
+			<header className='product-header'>
+				<span
+					className='product-category'
+					aria-label={`Categoria: ${category}`}>
+					{category}
+				</span>
+
+				<h3
+					id={`product-name-${id}`}
+					className='product-name'>
+					{name}
+				</h3>
 			</header>
-			<p className='product-price'>R$ 0,00</p>
-			<p className='product-description'>Descrição do produto</p>
-			<span className='product-category'>Categoria</span>
-			<div className='product-stock'>Em estoque</div>
-			<button
-				className='add-to-cart-button'
-				onClick={handleAddToCart}>
-				Adicionar ao Carrinho
-			</button>
+
+			<p
+				className='product-price'
+				aria-label={`Preço: ${formattedPrice}`}>
+				{formattedPrice}
+			</p>
+
+			<p
+				id={`product-description-${id}`}
+				className='product-description'>
+				{description}
+			</p>
+
+			<div className='product-actions'>
+				<div
+					className={`product-stock ${stockStateClass}`}
+					role='status'
+					aria-live='polite'>
+					{stockStatus}
+				</div>
+				<button
+					className={`add-to-cart-button ${buttonStateClass}`}
+					onClick={handleAddToCart}
+					disabled={!inStock}
+					aria-label={buttonLabel + (inStock ? ` ${name}` : '')}>
+					{buttonLabel}
+				</button>
+			</div>
 		</article>
 	);
 }

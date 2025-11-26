@@ -43,9 +43,7 @@ export default function Products() {
 
 	return (
 		<section className='products-container'>
-			<h1>Nossos Produtos</h1>
-
-			{/* TODO: Implementar renderização da lista aqui */}
+			<h1 className='text-2xl font-bold mb-8'>Nossos Produtos</h1>
 			{products.length === 0 ? (
 				<div
 					role='status'

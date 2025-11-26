@@ -52,7 +52,7 @@ export default function Home() {
 					<Link
 						to='/products'
 						className='text-blue-600 hover:underline dark:text-blue-400 font-semibold text-lg'>
-						Ver todo o Catálogo ({mockProducts.length} itens) →
+						Confira todo o Catálogo →
 					</Link>
 				</div>
 			</section>

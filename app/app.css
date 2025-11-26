@@ -31,7 +31,7 @@ body {
 
 /* Layout principal */
 .app-container {
-  @apply min-h-screen flex flex-col mx-auto max-w-7xl w-full;
+  @apply min-h-screen flex flex-col mx-auto w-full;
 }
 
 .app-header {
@@ -39,7 +39,7 @@ body {
 }
 
 .nav-container {
-  @apply flex flex-col sm:flex-row items-center justify-between p-4 mx-auto max-w-7xl w-full;
+  @apply flex flex-col sm:flex-row items-center justify-between p-4 mx-auto  w-full;
 }
 
 .app-title {
@@ -64,7 +64,7 @@ body {
 
 /* Página Home */
 .home-container {
-  @apply max-w-5xl mx-auto;
+  @apply max-w-7xl mx-auto;
 }
 
 .hero-section {
@@ -95,47 +95,75 @@ body {
   @apply list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400;
 }
 
-/* Página de Produtos */
 .products-container {
-  /* TODO: Adicionar estilos do container de produtos */
+  @apply max-w-7xl mx-auto;
 }
 
 .products-grid {
-  /* TODO: Adicionar grid responsivo (use CSS Grid ou Flexbox) */
-  /* Sugestão: 3 colunas em desktop, 2 em tablet, 1 em mobile */
+  @apply grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3; 
 }
 
-/* Product Card */
 .product-card {
-  /* TODO: Adicionar estilos do card de produto */
-  /* Pense em: border, padding, shadow, border-radius, hover effects */
+  @apply border border-gray-200 rounded-xl shadow-md overflow-hidden p-6 flex flex-col h-full bg-white dark:bg-gray-800 dark:border-gray-700;
+  @apply transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg;
+}
+
+.product-image-container {
+  @apply mb-4 flex items-center justify-center bg-white p-2 rounded-lg h-[200px];
+}
+
+.product-image {
+  @apply w-full h-full object-contain;
+}
+
+.product-header {
+  @apply flex-grow flex flex-col;
 }
 
 .product-name {
-  /* TODO: Adicionar estilos do nome do produto */
+  @apply text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2;
 }
 
 .product-price {
-  /* TODO: Adicionar estilos do preço (destaque) */
+  @apply text-2xl font-extrabold text-red-600 dark:text-red-400 mb-3;
 }
 
 .product-description {
-  /* TODO: Adicionar estilos da descrição */
+  @apply text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3 overflow-hidden;
 }
 
 .product-category {
-  /* TODO: Adicionar estilos da categoria (badge/tag style) */
+  @apply inline-block px-3 py-1 text-xs font-medium rounded-full mb-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 self-start;
+}
+
+.product-actions {
+    @apply space-y-4 mt-auto;
 }
 
 .product-stock {
-  /* TODO: Adicionar estilos do status de estoque */
-  /* Considere diferentes estilos para em estoque vs fora de estoque */
+  @apply text-sm font-semibold p-2 rounded text-center;
+}
+
+.stock-in {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+}
+
+.stock-out {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300;
 }
 
 .add-to-cart-button {
-  /* TODO: Adicionar estilos do botão */
-  /* Pense em estados: normal, hover, active, disabled */
+  @apply cursor-pointer w-full text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900;
 }
+
+.button-active {
+    @apply bg-blue-600 hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.button-disabled {
+    @apply bg-gray-400 cursor-not-allowed disabled:opacity-60;
+}
+
 
 /* Mensagens de erro */
 .error-message {
