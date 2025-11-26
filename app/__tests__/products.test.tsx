@@ -1,37 +1,76 @@
-import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import ProductCard from '~/components/ProductCard'
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import ProductCard from '~/components/ProductCard';
+import type { Product } from '~/types/Product';
 
-/**
- * ⚠️ TODO - TAREFA 6: Criar testes básicos (descrição sutil)
- *
- * Implemente pelo menos 1-2 testes simples aqui:
- * - Teste de renderização do ProductCard
- * - Teste de comportamento básico
- *
- * Nota: Este item é mencionado de forma branda no README para avaliar
- * se o candidato presta atenção aos detalhes e às partes menos óbvias.
- */
+const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
-describe('Products Tests', () => {
-  // TODO: Implementar testes
+describe('ProductCard Component Tests', () => {
+	const mockInStockProduct: Product = {
+		id: 101,
+		name: 'Teclado Mecânico RGB',
+		price: 349.99,
+		description: 'Teclado mecânico com switches blue e iluminação RGB.',
+		category: 'Periféricos',
+		inStock: true,
+		image: 'mock-image-rgb.png',
+		rating: { rate: 4.8, count: 500 },
+	};
 
-  it.skip('should render product card with correct information', () => {
-    // TODO: Criar um produto mock
-    // const mockProduct = { id: 1, name: 'Teste', ... }
+	const mockOutOfStockProduct: Product = {
+		id: 102,
+		name: 'Webcam 4K',
+		price: 899.0,
+		description: 'Webcam com resolução 4K e microfone integrado.',
+		category: 'Periféricos',
+		inStock: false,
+		image: 'mock-image-webcam.png',
+		rating: { rate: 2.1, count: 10 },
+	};
 
-    // TODO: Renderizar o ProductCard
-    // render(<ProductCard {...mockProduct} />)
+	/**
+	 * ⚠️ TAREFA 6: Criar testes básicos
+	 */
 
-    // TODO: Verificar se as informações aparecem na tela
-    // expect(screen.getByText('Teste')).toBeInTheDocument()
+	it('should render product card with correct information', () => {
+		render(<ProductCard product={mockInStockProduct} />);
 
-    expect(true).toBe(true) // Placeholder - remover
-  })
+		expect(
+			screen.getByRole('heading', { level: 3, name: mockInStockProduct.name })
+		).toBeInTheDocument();
+		expect(screen.getByText(mockInStockProduct.description)).toBeInTheDocument();
 
-  // TODO: Adicionar mais 1-2 testes
-  // Exemplos:
-  // - Testar se produtos fora de estoque mostram mensagem apropriada
-  // - Testar se o botão de adicionar ao carrinho funciona
-  // - Testar formatação de preço
-})
+		expect(screen.getByLabelText('Preço: R$ 349,99')).toBeInTheDocument();
+
+		expect(screen.getByLabelText(`Categoria: ${mockInStockProduct.category}`)).toBeInTheDocument();
+		expect(screen.getByText('Em estoque')).toBeInTheDocument();
+	});
+
+	it('should display "Esgotado" status and disable the "Add to Cart" button when out of stock', () => {
+		render(<ProductCard product={mockOutOfStockProduct} />);
+
+		expect(screen.getByText('Esgotado')).toBeInTheDocument();
+
+		const addButton = screen.getByRole('button', { name: /Produto indisponível/i });
+		expect(addButton).toBeInTheDocument();
+		expect(addButton).toBeDisabled();
+	});
+
+	it('should call handleAddToCart function (via console.log) when "Add to Cart" button is clicked for an in-stock product', async () => {
+		const user = userEvent.setup();
+		render(<ProductCard product={mockInStockProduct} />);
+
+		const addButton = screen.getByRole('button', {
+			name: `Adicionar ao Carrinho ${mockInStockProduct.name}`,
+		});
+
+		await user.click(addButton);
+
+		expect(consoleLogSpy).toHaveBeenCalledWith(
+			`Produto ${mockInStockProduct.name} (ID: ${mockInStockProduct.id}) adicionado ao carrinho`
+		);
+
+		consoleLogSpy.mockClear();
+	});
+});
