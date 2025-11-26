@@ -1,5 +1,7 @@
 import type { Route } from './+types/home';
 import { Link } from 'react-router';
+import ProductCard from '~/components/ProductCard';
+import { mockProducts } from '~/utils/mockProducts';
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -9,13 +11,20 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+	const featuredProducts = mockProducts.slice(0, 3);
+
 	return (
-		<div className='home-container'>
+		<section
+			className='home-container'
+			role='region'
+			aria-labelledby='hero-title'>
 			<section className='hero-section'>
-				<h1 className='hero-title'>Bem-vindo ao Gerenciador de Produtos</h1>
-				<p className='hero-description'>
-					Sistema de gerenciamento de produtos construído com React Router v7
-				</p>
+				<h1
+					id='hero-title'
+					className='hero-title'>
+					Bem-vindo ao Gerenciador de Produtos
+				</h1>
+				<p className='hero-description'>Sistema de gerenciamento de produtos.</p>
 				<Link
 					to='/products'
 					className='cta-button'>
@@ -23,36 +32,30 @@ export default function Home() {
 				</Link>
 			</section>
 
-			<section className='info-section'>
-				<div className='info-card'>
-					<h2>Sobre o Projeto</h2>
-					<p>
-						Este é um projeto base para o desafio técnico de desenvolvedor front-end. O objetivo é
-						completar as tarefas pendentes e demonstrar conhecimento em React Router.
-					</p>
+			<section
+				className='pt-8'
+				aria-label='Produtos em Destaque'>
+				<h2 className='text-3xl font-bold mb-6 text-gray-900 dark:text-white text-center'>
+					Produtos em Destaque
+				</h2>
+
+				<div className='products-grid max-w-4xl mx-auto'>
+					{featuredProducts.map((product) => (
+						<ProductCard
+							key={product.id}
+							product={product}
+						/>
+					))}
 				</div>
 
-				<div className='info-card'>
-					{/* <h2>Tecnologias</h2>
-          <ul>
-            <li>React 19</li>
-            <li>React Router v7</li>
-            <li>TypeScript</li>
-            <li>Tailwind CSS</li>
-            <li>Vitest</li>
-          </ul> */}
-				</div>
-
-				<div className='info-card'>
-					{/* <h2>Recursos</h2>
-					<ul>
-						<li>Server Routes (loaders)</li>
-						<li>Client Routes (componentes)</li>
-						<li>Error Boundaries</li>
-						<li>TypeScript strict mode</li>
-					</ul> */}
+				<div className='mt-12 text-center'>
+					<Link
+						to='/products'
+						className='text-blue-600 hover:underline dark:text-blue-400 font-semibold text-lg'>
+						Ver todo o Catálogo ({mockProducts.length} itens) →
+					</Link>
 				</div>
 			</section>
-		</div>
+		</section>
 	);
 }
