@@ -17,30 +17,24 @@ import React from 'react'
 import {Await, useLoaderData, Link } from 'react-router'
 import type { Product } from '~/types/Product'
 import ProductCard from '~/components/product/ProductCard'
-// interface Product {
-//   id: number
-//   name: string
-//   price: number
-//   description: string
-//   category: string
-//   inStock: boolean
-// }
+import ErrorBoundary from '~/components/layout/ErrorBoundary'
+
 
 export default function Products() {
   // TODO: Use o hook apropriado do React Router aqui
-  const { products } = useLoaderData() as {
+  const { products, } = useLoaderData() as {
     products: Product[];
+
   };
 
   // TODO: Tratar caso de erro
-  // if (data.error) {
-  //   return (
-  //     <div className="error-message">
-  //       <h2>Erro ao carregar produtos</h2>
-  //       <p>{data.error}</p>
-  //     </div>
-  //   )
-  // }
+  if (!products) {
+    return (
+      <div className="error-message">
+        <h2>Erro ao carregar produtos</h2>
+      </div>
+    )
+  }
 
   // TODO: Renderizar lista de produtos usando ProductCard
   // Dica: não esqueça de adicionar uma key apropriada
@@ -73,7 +67,7 @@ export default function Products() {
         gap-6"
       role="list"
     >
-      <Await resolve={products} errorElement={<p>ola</p>}>
+      <Await resolve={products} errorElement={<ErrorBoundary/>}>
         {(resolvedProducts: Product[]) =>
           resolvedProducts.map((product) => (
             <li key={product.id}>
