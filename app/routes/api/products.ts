@@ -17,7 +17,7 @@ import { fetchProducts } from '~/services/api'
 export async function loader({}: LoaderFunctionArgs) {
   try {
     return {
-      products: fetchProducts(),
+      products: await fetchProducts(),
       error: null,
     };
   } catch (error: any) {

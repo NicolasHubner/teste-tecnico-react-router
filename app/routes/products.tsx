@@ -28,14 +28,6 @@ export default function Products() {
   };
 
   // TODO: Tratar caso de erro
-  if (!products) {
-    return (
-      <div className="error-message">
-        <h2>Erro ao carregar produtos</h2>
-      </div>
-    )
-  }
-
   // TODO: Renderizar lista de produtos usando ProductCard
   // Dica: não esqueça de adicionar uma key apropriada
 
