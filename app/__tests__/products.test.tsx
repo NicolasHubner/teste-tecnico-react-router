@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act, fireEvent } from '@testing-library/react'
 import ProductCard from '~/components/product/ProductCard'
-
+import type { Product } from '~/types/Product';
 /**
  * ⚠️ TODO - TAREFA 6: Criar testes básicos (descrição sutil)
  *
@@ -13,25 +13,26 @@ import ProductCard from '~/components/product/ProductCard'
  * se o candidato presta atenção aos detalhes e às partes menos óbvias.
  */
 
-describe('Products Tests', () => {
-  // TODO: Implementar testes
+const mockProduct: Product = {
+  id: 1,
+  title: "Produto Teste",
+  price: 99.9,
+  description: "Descrição de teste",
+  category: "Categoria X",
+  image: "https://example.com/img.png",
+};
 
-  it.skip('should render product card with correct information', () => {
-    // TODO: Criar um produto mock
-    // const mockProduct = { id: 1, name: 'Teste', ... }
+describe("Products Tests", () => {
 
-    // TODO: Renderizar o ProductCard
-    // render(<ProductCard {...mockProduct} />)
+  it("should render product card with correct information", () => {
+    render(<ProductCard product={mockProduct} />);
 
-    // TODO: Verificar se as informações aparecem na tela
-    // expect(screen.getByText('Teste')).toBeInTheDocument()
+    expect(screen.getByText("Produto Teste")).toBeInTheDocument();
+    expect(screen.getByText("R$ 99.90")).toBeInTheDocument();
+    expect(screen.getByText("Descrição de teste")).toBeInTheDocument();
+    expect(screen.getByText(/Categoria X/)).toBeInTheDocument();
+  });
 
-    expect(true).toBe(true) // Placeholder - remover
-  })
+ 
+});
 
-  // TODO: Adicionar mais 1-2 testes
-  // Exemplos:
-  // - Testar se produtos fora de estoque mostram mensagem apropriada
-  // - Testar se o botão de adicionar ao carrinho funciona
-  // - Testar formatação de preço
-})
