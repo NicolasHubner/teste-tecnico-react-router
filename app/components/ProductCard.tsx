@@ -1,49 +1,64 @@
-/**
- * ⚠️ TODO - TAREFA 9: Finalizar componente ProductCard
- *
- * Complete este componente:
- * - Defina a interface de props corretamente (use o tipo Product)
- * - Implemente a renderização de todas as informações do produto
- * - Adicione interatividade básica (ex: botão de adicionar ao carrinho)
- *
- * ⚠️ TODO - TAREFA 4: Implementar estilização
- * - As classes CSS já estão definidas, mas faltam os estilos
- * - Adicione estilos usando Tailwind ou CSS customizado
- *
- * ⚠️ TODO - TAREFA 5: Melhorar acessibilidade (sutil)
- * - Use elementos semânticos
- * - Adicione ARIA labels em botões e elementos interativos
- */
+import type { Product } from '~/types/Product'
 
-// TODO: Definir interface de props
 interface ProductCardProps {
-  // Adicione as propriedades necessárias aqui
-  // Dica: id, name, price, description, category, inStock
+  product: Product;
 }
 
-export default function ProductCard(/* props aqui */) {
-  // TODO: Desestruturar props
+export default function ProductCard({ product }: ProductCardProps) {
+  const { title, price, description, category, image } = product;
 
   const handleAddToCart = () => {
-    // Placeholder para adicionar ao carrinho
-    console.log('Produto adicionado ao carrinho')
-  }
+   alert(`Produto "${title}" adicionado ao carrinho!`);
+   
+  };
 
   return (
-    <div className="product-card">
-      {/* TODO: Implementar conteúdo do card */}
-      {/* Deve exibir: nome, preço, descrição, categoria, status de estoque */}
-      <h3 className="product-name">Nome do Produto</h3>
-      <p className="product-price">R$ 0,00</p>
-      <p className="product-description">Descrição do produto</p>
-      <span className="product-category">Categoria</span>
-      <div className="product-stock">Em estoque</div>
+    <article
+      className="
+        product-card 
+        border rounded-xl p-4 shadow-sm bg-white 
+        flex flex-col 
+        hover:shadow-lg transition
+        h-full
+      "
+      aria-label={`Produto: ${title}`}
+    >
+      <img
+        src={image}
+        alt={title}
+        className="w-full h-48 object-contain mb-4"
+      />
+      <h3 className="text-lg font-semibold mb-2 line-clamp-1">
+        {title}
+      </h3>
+
+      <span className="text-xs text-gray-500 mb-1">
+        Categoria: {category}
+      </span>
+
+      <p className="text-green-700 font-bold text-lg mt-1">
+        R$ {price.toFixed(2)}
+      </p>
+
+      <p className="text-sm mt-3 text-gray-700 line-clamp-3">
+        {description}
+      </p>
+
+      <div className="mt-auto" />
+
+
       <button
-        className="add-to-cart-button"
+        className="
+          mt-4 px-3 py-2 rounded-lg 
+          bg-blue-600 text-white font-medium 
+          hover:bg-blue-700 focus:outline-none 
+          focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+          w-full
+        "
         onClick={handleAddToCart}
       >
         Adicionar ao Carrinho
       </button>
-    </div>
-  )
+    </article>
+  );
 }
