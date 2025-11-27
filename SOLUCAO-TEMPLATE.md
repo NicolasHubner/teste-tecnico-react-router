@@ -75,7 +75,7 @@ Estilos de focus:ring foram aplicados em botões e links.
 **Como resolvi:**
 [Explique quais testes você criou e por quê]
 
-Implementei três testes unitários em app/**tests**/products.test.tsx utilizando Vitest e @testing-library/react:
+Implementei três testes unitários em app tests products.test.tsx utilizando Vitest e @testing-library/react:
 
 Teste de Renderização: Verifica se nome, preço (formatado) e categoria são exibidos corretamente.
 
@@ -125,6 +125,12 @@ O loader (Server) usa try/catch para capturar falhas de API/rede e, em vez de la
 - Casos de uso apropriados
 - Como elas se comunicam (loaders, useLoaderData, etc.)]
 
+No React Router v7, o conceito de Rotas Server e Rotas Client define a separação de preocupações (SRP) para otimizar o desempenho e a experiência de desenvolvimento, garantindo que o código de I/O (Input/Output) nunca seja enviado para o navegador.
+
+As Rotas Server são dedicadas à Lógica de I/O (Input/Output). Sua responsabilidade é lidar com tarefas como busca de dados (loader), mutação (action), integração com API e autenticação. Elas são executadas no servidor (ambiente Node.js) durante o build-time (para Server-Side Rendering - SSR) ou em requisições de navegação (runtime). Este modelo é ideal para buscar dados pesados ou sensíveis de forma eficiente, onde a latência de rede entre cliente e API é alta.
+
+Por outro lado, as Rotas Client são focadas na Lógica de UI e Interatividade. Elas lidam com a renderização do JSX, gestão de estado local e eventos DOM (ex: onClick). Estas rotas executam no browser (client-side) após a hidratação inicial do HTML. A comunicação é feita de maneira clara: o Server Route, por meio do loader, fornece os dados prontos, e o Client Route os consome usando o hook useLoaderData.
+
 ---
 
 ## Pontos Extras Implementados (Opcional)
@@ -147,6 +153,7 @@ O loader (Server) usa try/catch para capturar falhas de API/rede e, em vez de la
 ## Observações Gerais
 
 [Adicione quaisquer comentários, decisões técnicas importantes, ou dificuldades encontradas durante a implementação]
+
 Para esse projeto eu adotei o SRP e DRY para garantir que cada arquivo tivesse uma responsabilidade única e que não houvesse repetição de código, e Qualidade de Código. A separação lógica entre o mapeamento de API (api.ts), a orquestração do dado (api/products.ts) e a renderização (products.tsx) demonstra a aplicação focando em um código modular, de fácil manutenção e testável.
 
 ---
