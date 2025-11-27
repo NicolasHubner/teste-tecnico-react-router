@@ -16,7 +16,7 @@ export { loader } from './api/products'
 import React from 'react'
 import {Await, useLoaderData, Link } from 'react-router'
 import type { Product } from '~/types/Product'
-import ProductCard from '~/components/ProductCard'
+import ProductCard from '~/components/product/ProductCard'
 // interface Product {
 //   id: number
 //   name: string

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import ProductCard from '~/components/ProductCard'
+import ProductCard from '~/components/product/ProductCard'
 
 /**
  * ⚠️ TODO - TAREFA 6: Criar testes básicos (descrição sutil)
