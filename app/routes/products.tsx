@@ -13,42 +13,63 @@
  */
 
 export { loader } from './api/products'
+import React from 'react'
+import {Await, useLoaderData, Link } from 'react-router'
+import type { Product } from '~/types/Product'
+import ProductCard from '~/components/product/ProductCard'
+import ErrorBoundary from '~/components/layout/ErrorBoundary'
 
-interface Product {
-  id: number
-  name: string
-  price: number
-  description: string
-  category: string
-  inStock: boolean
-}
 
 export default function Products() {
   // TODO: Use o hook apropriado do React Router aqui
-  const data = { products: [] as Product[], error: undefined as string | undefined }
+  const { products, } = useLoaderData() as {
+    products: Product[];
+
+  };
 
   // TODO: Tratar caso de erro
-  if (data.error) {
-    return (
-      <div className="error-message">
-        <h2>Erro ao carregar produtos</h2>
-        <p>{data.error}</p>
-      </div>
-    )
-  }
-
   // TODO: Renderizar lista de produtos usando ProductCard
   // Dica: não esqueça de adicionar uma key apropriada
 
   return (
-    <div className="products-container">
-      <h1>Nossos Produtos</h1>
+    <section
+    className="products-container p-6 max-w-6xl mx-auto"
+    aria-labelledby="products-title">
+      <nav aria-label="Breadcrumb" className="mb-4">
+    <Link
+      to="/"
+      className="text-gray-600 hover:text-gray-900 text-lg font-medium flex items-center gap-2"
+    >
+      <span aria-hidden="true">←</span>
+      <span>Voltar para Home</span>
+    </Link>
+  </nav>
 
-      {/* TODO: Implementar renderização da lista aqui */}
-      <div className="products-grid">
-        {/* ProductCard components aqui */}
-        <p>Nenhum produto disponível</p>
-      </div>
-    </div>
+  <h1 id="products-title" className="text-2xl font-bold mb-4">
+    Nossos Produtos
+  </h1>
+   <React.Suspense fallback={<p role="status">Carregando produtos...</p>}>
+    <ul
+      className="
+        products-grid 
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        gap-6"
+      role="list"
+    >
+      <Await resolve={products} errorElement={<ErrorBoundary/>}>
+        {(resolvedProducts: Product[]) =>
+          resolvedProducts.map((product) => (
+            <li key={product.id}>
+              <ProductCard product={product} />
+            </li>
+          ))
+        }
+      </Await>
+    </ul>
+  </React.Suspense>
+</section>
   )
 }

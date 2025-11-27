@@ -6,7 +6,6 @@
  */
 
 import type { Product } from "~/types/Product"
-import { mockProducts } from "~/utils/mockProducts"
 
 /**
  * ⚠️ TODO - TAREFA 1: Integração com API Externa
@@ -29,13 +28,15 @@ import { mockProducts } from "~/utils/mockProducts"
  */
 
 export async function fetchProducts(): Promise<Product[]> {
-  // Simula latência de rede
-  await new Promise(resolve => setTimeout(resolve, 500))
+  const baseUrl = import.meta.env.VITE_APP_BASE_URL
 
-  // Simula possível erro (10% de chance)
-  if (Math.random() < 0.1) {
-    throw new Error('Falha ao conectar com o servidor')
+  const response = await fetch(`${baseUrl}/products`)
+
+  if (!response.ok) {
+    throw new Error("Falha ao buscar produtos")
   }
 
-  return mockProducts
+  const data = await response.json()
+  return data
 }
+

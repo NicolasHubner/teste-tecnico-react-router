@@ -7,7 +7,8 @@ import {
   ScrollRestoration,
   Link,
 } from "react-router";
-
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -45,12 +46,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </nav>
           </header>
-          <main className="main-content">
+           <Header/>
+          <main className="main-content mt-16 mb-16">
             {children}
           </main>
-          <footer className="app-footer">
-            <p>Desafio Técnico Pontua - 2025</p>
-          </footer>
+          <Footer/>
         </div>
         <ScrollRestoration />
         <Scripts />
