@@ -1,54 +1,49 @@
-/**
- * ⚠️ TODO - TAREFA 3: Ajustar a rota client
- *
- * Complete esta rota client:
- * - Use o hook correto do React Router para obter dados do loader
- * - Renderize a lista de produtos usando o componente ProductCard
- * - Trate o caso de lista vazia
- *
- * ⚠️ TODO - TAREFA 5: Melhorar acessibilidade (sutil)
- * - Verifique se está usando elementos semânticos corretos
- * - Adicione ARIA labels onde apropriado
- * - Pense em navegação por teclado
- */
+import { useLoaderData } from "react-router";
+import type { Product } from "~/types/Product";
+import ProductCard from "~/components/ProductCard";
 
-export { loader } from './api/products'
+export { loader } from "./api/products";
 
-interface Product {
-  id: number
-  name: string
-  price: number
-  description: string
-  category: string
-  inStock: boolean
+interface LoaderData {
+  products: Product[];
+  error?: string;
 }
 
 export default function Products() {
-  // TODO: Use o hook apropriado do React Router aqui
-  const data = { products: [] as Product[], error: undefined as string | undefined }
+  const data = useLoaderData<LoaderData>();
 
-  // TODO: Tratar caso de erro
+  // Tratar caso de erro
   if (data.error) {
     return (
-      <div className="error-message">
+      <div className="error-message" role="alert" aria-live="polite">
         <h2>Erro ao carregar produtos</h2>
         <p>{data.error}</p>
       </div>
-    )
+    );
   }
 
-  // TODO: Renderizar lista de produtos usando ProductCard
-  // Dica: não esqueça de adicionar uma key apropriada
-
+  // Renderizar lista de produtos usando ProductCard
   return (
-    <div className="products-container">
+    <main className="products-container">
       <h1>Nossos Produtos</h1>
 
-      {/* TODO: Implementar renderização da lista aqui */}
-      <div className="products-grid">
-        {/* ProductCard components aqui */}
-        <p>Nenhum produto disponível</p>
-      </div>
-    </div>
-  )
+      {data.products.length === 0 ? (
+        <p className="empty-state" aria-live="polite">
+          Nenhum produto disponível
+        </p>
+      ) : (
+        <ul
+          className="products-grid"
+          role="list"
+          aria-label="Lista de produtos"
+        >
+          {data.products.map((product) => (
+            <li key={product.id} role="listitem">
+              <ProductCard {...product} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  );
 }
