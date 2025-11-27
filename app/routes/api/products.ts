@@ -14,9 +14,17 @@ import { fetchProducts } from '~/services/api'
  * - Exemplo: return { error: 'Mensagem de erro', products: [] }
  */
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  // TODO: Implementar busca de dados aqui
-  // Dica: use fetchProducts() e adicione tratamento de erro
-
-  return { products: [] }
+export async function loader({}: LoaderFunctionArgs) {
+  try {
+    return {
+      products: fetchProducts(),
+      error: null,
+    };
+  } catch (error: any) {
+    throw new Response(
+      JSON.stringify({ 
+        message: error?.message ?? "Erro ao buscar produtos" 
+      }), 
+    );
+  }
 }
