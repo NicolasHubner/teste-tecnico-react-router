@@ -1,5 +1,6 @@
-import type { LoaderFunctionArgs } from 'react-router'
-import { fetchProducts } from '~/services/api'
+import type { LoaderFunctionArgs } from 'react-router';
+import { fetchProducts } from '~/services/api';
+import type { Product } from '~/types/Product';
 
 /**
  * ⚠️ TODO - TAREFA 2: Completar a rota server
@@ -14,9 +15,20 @@ import { fetchProducts } from '~/services/api'
  * - Exemplo: return { error: 'Mensagem de erro', products: [] }
  */
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  // TODO: Implementar busca de dados aqui
-  // Dica: use fetchProducts() e adicione tratamento de erro
+interface LoaderData {
+	products: Product[];
+	error?: string | undefined;
+}
 
-  return { products: [] }
+export async function loader({ request }: LoaderFunctionArgs) {
+	// TODO: Implementar busca de dados aqui
+	// Dica: use fetchProducts() e adicione tratamento de erro
+
+	try {
+		const products = await fetchProducts();
+		return { products, error: undefined };
+	} catch (error) {
+		console.error('Erro ao buscar produtos:', error);
+		return { products: [], error: 'Falha ao buscar produtos. Tente novamente mais tarde.' };
+	}
 }

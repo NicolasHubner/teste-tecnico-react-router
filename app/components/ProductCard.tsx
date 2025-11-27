@@ -15,35 +15,106 @@
  * - Adicione ARIA labels em botões e elementos interativos
  */
 
-// TODO: Definir interface de props
+import type { Product } from '~/types/Product';
+import React, { useState, useCallback } from 'react';
+
 interface ProductCardProps {
-  // Adicione as propriedades necessárias aqui
-  // Dica: id, name, price, description, category, inStock
+	product: Product;
 }
 
-export default function ProductCard(/* props aqui */) {
-  // TODO: Desestruturar props
+export default function ProductCard({ product }: ProductCardProps) {
+	const { id, name, price, description, category, inStock, image } = product;
+	const [isAdded, setIsAdded] = useState(false);
 
-  const handleAddToCart = () => {
-    // Placeholder para adicionar ao carrinho
-    console.log('Produto adicionado ao carrinho')
-  }
+	const handleAddToCart = useCallback(() => {
+		console.log(`Produto ${name} (ID: ${id}) adicionado ao carrinho`);
 
-  return (
-    <div className="product-card">
-      {/* TODO: Implementar conteúdo do card */}
-      {/* Deve exibir: nome, preço, descrição, categoria, status de estoque */}
-      <h3 className="product-name">Nome do Produto</h3>
-      <p className="product-price">R$ 0,00</p>
-      <p className="product-description">Descrição do produto</p>
-      <span className="product-category">Categoria</span>
-      <div className="product-stock">Em estoque</div>
-      <button
-        className="add-to-cart-button"
-        onClick={handleAddToCart}
-      >
-        Adicionar ao Carrinho
-      </button>
-    </div>
-  )
+		setIsAdded(true);
+
+		const timer = setTimeout(() => {
+			setIsAdded(false);
+		}, 1000);
+
+		return () => clearTimeout(timer);
+	}, [id, name]);
+
+	const formattedPrice = new Intl.NumberFormat('pt-BR', {
+		style: 'currency',
+		currency: 'BRL',
+	}).format(price);
+
+	const stockStatus = inStock ? 'Em estoque' : 'Esgotado';
+	const buttonLabel = inStock ? 'Adicionar ao Carrinho' : 'Produto indisponível';
+
+	const stockStateClass = inStock ? 'stock-in' : 'stock-out';
+	const buttonStateClass = inStock ? 'button-active' : 'button-disabled';
+
+	return (
+		<article
+			className='product-card'
+			aria-labelledby={`product-name-${id}`}
+			aria-describedby={`product-description-${id}`}>
+			{isAdded && (
+				<div
+					role='status'
+					aria-live='polite'
+					className='product-added'>
+					<p>Produto adicionado ao carrinho!</p>
+				</div>
+			)}
+
+			{image && (
+				<div className='product-image-container'>
+					<img
+						src={image}
+						alt={`Imagem de ${name}`}
+						className='product-image'
+						loading='lazy'
+					/>
+				</div>
+			)}
+
+			<header className='product-header'>
+				<span
+					className='product-category'
+					aria-label={`Categoria: ${category}`}>
+					{category}
+				</span>
+
+				<h3
+					id={`product-name-${id}`}
+					className='product-name'>
+					{name}
+				</h3>
+			</header>
+
+			<p
+				className='product-price'
+				aria-label={`Preço: ${formattedPrice}`}>
+				{formattedPrice}
+			</p>
+
+			<p
+				id={`product-description-${id}`}
+				className='product-description'>
+				{description}
+			</p>
+
+			<div className='product-actions'>
+				<div
+					className={`product-stock ${stockStateClass}`}
+					role='status'
+					aria-live='polite'>
+					{stockStatus}
+				</div>
+				<button
+					className={`add-to-cart-button ${buttonStateClass}`}
+					onClick={handleAddToCart}
+					disabled={!inStock}
+					aria-label={buttonLabel + (inStock ? ` ${name}` : '')}>
+					{buttonLabel}
+				</button>
+			</div>
+		</article>
+	);
 }

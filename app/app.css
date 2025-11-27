@@ -31,118 +31,167 @@ body {
 
 /* Layout principal */
 .app-container {
-  /* TODO: Adicionar estilos do container principal */
+  @apply min-h-screen flex flex-col mx-auto w-full;
 }
 
 .app-header {
-  /* TODO: Adicionar estilos do header */
+  @apply bg-gray-800 dark:bg-gray-900 shadow-lg sticky top-0 z-10;
 }
 
 .nav-container {
-  /* TODO: Adicionar estilos da navegação */
+  @apply flex flex-col sm:flex-row items-center justify-between p-4 mx-auto  w-full;
+}
+
+.app-title {
+  @apply text-2xl font-bold text-white mb-2 sm:mb-0;
 }
 
 .nav-links {
-  /* TODO: Adicionar estilos dos links de navegação */
+  @apply flex space-x-2 md:space-x-4 mb-2 sm:mb-0;
 }
 
 .nav-link {
-  /* TODO: Adicionar estilos individuais dos links */
+  @apply text-white hover:text-blue-400 transition-colors duration-150 p-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800;
 }
 
 .main-content {
-  /* TODO: Adicionar estilos do conteúdo principal */
+  @apply flex-grow p-4 md:p-8;
 }
 
 .app-footer {
-  /* TODO: Adicionar estilos do footer */
+  @apply bg-gray-100 dark:bg-gray-900 text-center p-4 text-gray-600 dark:text-gray-400 text-sm;
 }
 
 /* Página Home */
 .home-container {
-  /* TODO: Adicionar estilos do container da home */
+  @apply max-w-7xl mx-auto;
 }
 
 .hero-section {
-  /* TODO: Adicionar estilos da seção hero */
+  @apply bg-blue-600 dark:bg-blue-900 text-white p-10 rounded-xl shadow-2xl mb-12 text-center;
 }
 
 .hero-title {
-  /* TODO: Adicionar estilos do título hero */
+  @apply text-4xl sm:text-5xl font-extrabold mb-4;
 }
 
 .hero-description {
-  /* TODO: Adicionar estilos da descrição */
+  @apply text-lg sm:text-xl mb-6 opacity-90;
 }
 
 .cta-button {
-  /* TODO: Adicionar estilos do botão CTA */
-}
-
-.info-section {
-  /* TODO: Adicionar estilos da seção de informações */
+  @apply inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white hover:bg-gray-100 hover:-translate-y-0.5 hover:scale-105 hover:shadow-2xl; 
 }
 
 .info-card {
-  /* TODO: Adicionar estilos dos cards de informação */
+  @apply bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-100 dark:border-gray-700;
 }
 
-/* Página de Produtos */
+.info-card h2 {
+  @apply text-xl font-semibold mb-3 text-gray-900 dark:text-white;
+}
+
+.info-card ul {
+  @apply list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400;
+}
+
 .products-container {
-  /* TODO: Adicionar estilos do container de produtos */
+  @apply max-w-7xl mx-auto;
 }
 
 .products-grid {
-  /* TODO: Adicionar grid responsivo (use CSS Grid ou Flexbox) */
-  /* Sugestão: 3 colunas em desktop, 2 em tablet, 1 em mobile */
+  @apply grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3; 
 }
 
-/* Product Card */
 .product-card {
-  /* TODO: Adicionar estilos do card de produto */
-  /* Pense em: border, padding, shadow, border-radius, hover effects */
+  @apply border border-gray-200 rounded-xl shadow-md overflow-hidden p-6 flex flex-col h-full bg-white dark:bg-gray-800 dark:border-gray-700;
+  @apply transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg;
+}
+
+.product-image-container {
+  @apply mb-4 flex items-center justify-center bg-white p-2 rounded-lg h-[200px];
+}
+
+.product-image {
+  @apply w-full h-full object-contain;
+}
+
+.product-header {
+  @apply flex-grow flex flex-col;
 }
 
 .product-name {
-  /* TODO: Adicionar estilos do nome do produto */
+  @apply text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2;
 }
 
 .product-price {
-  /* TODO: Adicionar estilos do preço (destaque) */
+  @apply text-2xl font-extrabold text-red-600 dark:text-red-400 mb-3;
 }
 
 .product-description {
-  /* TODO: Adicionar estilos da descrição */
+  @apply text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3 overflow-hidden;
 }
 
 .product-category {
-  /* TODO: Adicionar estilos da categoria (badge/tag style) */
+  @apply inline-block px-3 py-1 text-xs font-medium rounded-full mb-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 self-start;
+}
+
+.product-actions {
+    @apply space-y-4 mt-auto;
 }
 
 .product-stock {
-  /* TODO: Adicionar estilos do status de estoque */
-  /* Considere diferentes estilos para em estoque vs fora de estoque */
+  @apply text-sm font-semibold p-2 rounded text-center;
+}
+
+.stock-in {
+    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+}
+
+.stock-out {
+    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300;
 }
 
 .add-to-cart-button {
-  /* TODO: Adicionar estilos do botão */
-  /* Pense em estados: normal, hover, active, disabled */
+  @apply cursor-pointer w-full text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900;
 }
 
+.button-active {
+    @apply bg-blue-600 hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.button-disabled {
+    @apply bg-gray-400 cursor-not-allowed disabled:opacity-60;
+}
+
+
 /* Mensagens de erro */
+
 .error-message {
-  /* TODO: Adicionar estilos para mensagens de erro */
+  @apply p-6 bg-red-100 border border-red-400 rounded-lg text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-300 max-w-lg mx-auto my-8;
+}
+
+.empty-list-message {
+  @apply p-6 bg-yellow-100 border border-yellow-400 rounded-lg text-yellow-800 dark:bg-yellow-950 dark:border-yellow-800 dark:text-yellow-300 max-w-lg mx-auto my-8;
 }
 
 .error-container {
-  /* TODO: Adicionar estilos para container de erro */
+  @apply p-8 bg-red-100 border border-red-400 text-red-700 rounded-xl max-w-xl mx-auto my-10 shadow-lg dark:bg-red-950 dark:border-red-800 dark:text-red-300 text-center;
+}
+.error-container h2 {
+  @apply text-3xl font-bold mb-4;
 }
 
-/* Responsividade */
+.error-container button {
+  @apply bg-red-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 transition-colors duration-200 mt-4;
+}
+
 @media (max-width: 768px) {
-  /* TODO: Adicionar ajustes para mobile/tablet */
+    .nav-container {
+        @apply flex-col space-y-4 items-center;
+    }
 }
 
-@media (max-width: 480px) {
-  /* TODO: Adicionar ajustes para mobile pequeno */
+.product-added {
+    @apply bg-green-600 text-white text-sm font-medium py-1 px-3 rounded-full absolute top-2 right-2 shadow-xl z-10;
 }

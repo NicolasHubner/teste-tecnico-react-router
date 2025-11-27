@@ -11,44 +11,56 @@
  * - Adicione ARIA labels onde apropriado
  * - Pense em navegação por teclado
  */
+import { useLoaderData } from 'react-router';
+import ProductCard from '~/components/ProductCard';
+import type { Product } from '~/types/Product';
+export { loader } from './api/products';
 
-export { loader } from './api/products'
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  description: string
-  category: string
-  inStock: boolean
+interface ProductsLoaderData {
+	products: Product[];
+	error: string | undefined;
 }
 
 export default function Products() {
-  // TODO: Use o hook apropriado do React Router aqui
-  const data = { products: [] as Product[], error: undefined as string | undefined }
+	// TODO: Use o hook apropriado do React Router aqui
+	const { products, error } = useLoaderData() as ProductsLoaderData;
 
-  // TODO: Tratar caso de erro
-  if (data.error) {
-    return (
-      <div className="error-message">
-        <h2>Erro ao carregar produtos</h2>
-        <p>{data.error}</p>
-      </div>
-    )
-  }
+	// TODO: Tratar caso de erro
+	if (error) {
+		return (
+			<div
+				className='error-message'
+				role='alert'
+				aria-live='assertive'>
+				<h1 className='text-2xl font-bold'>Erro ao carregar produtos</h1>
+				<p>{error}</p>
+			</div>
+		);
+	}
 
-  // TODO: Renderizar lista de produtos usando ProductCard
-  // Dica: não esqueça de adicionar uma key apropriada
+	// TODO: Renderizar lista de produtos usando ProductCard
+	// Dica: não esqueça de adicionar uma key apropriada
 
-  return (
-    <div className="products-container">
-      <h1>Nossos Produtos</h1>
-
-      {/* TODO: Implementar renderização da lista aqui */}
-      <div className="products-grid">
-        {/* ProductCard components aqui */}
-        <p>Nenhum produto disponível</p>
-      </div>
-    </div>
-  )
+	return (
+		<section className='products-container'>
+			<h1 className='text-2xl font-bold mb-8'>Nossos Produtos</h1>
+			{products.length === 0 ? (
+				<div
+					role='status'
+					className='empty-list-message'>
+					<p>Nenhum produto disponível</p>
+				</div>
+			) : (
+				<ul
+					className='products-grid'
+					role='list'>
+					{products.map((product) => (
+						<li key={product.id}>
+							<ProductCard product={product} />
+						</li>
+					))}
+				</ul>
+			)}
+		</section>
+	);
 }
