@@ -1,41 +1,42 @@
 /**
- * Serviço de API simulado
+ * Serviço de API para integração com Faker Store API
  *
- * Esta função simula uma chamada de API real.
+ * Esta função busca produtos da API pública Faker Store API.
  * Use-a na rota server para buscar produtos.
  */
 
-import type { Product } from "~/types/Product"
-import { mockProducts } from "~/utils/mockProducts"
+import type { Product, FakerStoreProduct } from "~/types/Product";
 
-/**
- * ⚠️ TODO - TAREFA 1: Integração com API Externa
- *
- * Complete esta rota client:
- * - Crie um arquivo .env na raiz do projeto baseado no .env.example
- * - Integre a API Pública Faker Store Api (https://fakestoreapi.com)
- * - Implemente a busca de produtos /products
-  * - Utilize a fetchAPI para integração
-  * - Reescreva a tipagem Product de maneira adequada para o retorno da API
-  * 
-  * Dica: Para acessar a variável de ambiente utilize: import.meta.env.VITE_APP_BASE_URL
-*/
-
-
-/**
- * Simula uma chamada de API que retorna produtos
- * Inclui delay artificial para simular latência de rede
- * Ajuste a função fetchProducts para buscar dados da API externa conforme a tarefa 1
- */
+const API_BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export async function fetchProducts(): Promise<Product[]> {
-  // Simula latência de rede
-  await new Promise(resolve => setTimeout(resolve, 500))
+  try {
+    const response = await fetch(`${API_BASE_URL}/products`);
 
-  // Simula possível erro (10% de chance)
-  if (Math.random() < 0.1) {
-    throw new Error('Falha ao conectar com o servidor')
+    if (!response.ok) {
+      throw new Error(
+        `Erro ao buscar produtos: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const data: FakerStoreProduct[] = await response.json();
+
+    // Converte o formato da API (FakerStoreProduct) para o formato interno (Product)
+    const products: Product[] = data.map((product) => ({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      description: product.description,
+      category: product.category,
+      // A API não fornece informação de estoque, então foi adicionado um random para simular a disponibilidade do produto
+      inStock: Math.random() > 0.3,
+    }));
+
+    return products;
+  } catch (error) {
+    // Re-lança o erro para ser tratado no loader
+    throw error instanceof Error
+      ? error
+      : new Error("Erro desconhecido ao buscar produtos");
   }
-
-  return mockProducts
 }
