@@ -1,5 +1,7 @@
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
+import Hero from "~/components/ui/Hero";
+import InfoCard from "~/components/ui/infoCard";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,47 +12,45 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <div className="home-container">
-      <section className="hero-section">
-        <h1 className="hero-title">Bem-vindo ao Gerenciador de Produtos</h1>
-        <p className="hero-description">
-          Sistema de gerenciamento de produtos construído com React Router v7
-        </p>
-        <Link to="/products" className="cta-button">
-          Ver Produtos
-        </Link>
-      </section>
+    <div className="home-container max-w-6xl mx-auto px-6 py-12">
+     <Hero
+        title="Bem-vindo ao Gerenciador de Produtos"
+        description="Sistema de gerenciamento de produtos construído com React Router v7"
+        ctaLabel="Ver Produtos"
+        ctaTo="/products"
+      />
 
-      <section className="info-section">
-        <div className="info-card">
-          <h2>Sobre o Projeto</h2>
+      <section
+        className="info-section grid grid-cols-1 md:grid-cols-3 gap-8"
+        aria-label="Informações sobre o sistema"
+      >
+        <InfoCard title="Sobre o Projeto">
           <p>
-            Este é um projeto base para o desafio técnico de desenvolvedor front-end.
-            O objetivo é completar as tarefas pendentes e demonstrar conhecimento em React Router.
+            Este é um projeto base para o desafio técnico de desenvolvedor
+            front-end. O objetivo é completar as tarefas pendentes e demonstrar
+            conhecimento em React Router.
           </p>
-        </div>
+        </InfoCard>
 
-        <div className="info-card">
-          <h2>Tecnologias</h2>
-          <ul>
+        <InfoCard title="Tecnologias">
+          <ul className="space-y-1">
             <li>React 19</li>
             <li>React Router v7</li>
             <li>TypeScript</li>
             <li>Tailwind CSS</li>
             <li>Vitest</li>
           </ul>
-        </div>
+        </InfoCard>
 
-        <div className="info-card">
-          <h2>Recursos</h2>
-          <ul>
+        <InfoCard title="Recursos">
+          <ul className="space-y-1">
             <li>Server Routes (loaders)</li>
             <li>Client Routes (componentes)</li>
             <li>Error Boundaries</li>
             <li>TypeScript strict mode</li>
           </ul>
-        </div>
-      </section>
+        </InfoCard>
+        </section>
     </div>
   );
 }

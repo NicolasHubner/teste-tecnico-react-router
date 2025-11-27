@@ -51,9 +51,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {children}
           </main>
           <Footer/>
-          <footer className="app-footer">
-            <p>Desafio Técnico Pontua - 2025</p>
-          </footer>
         </div>
         <ScrollRestoration />
         <Scripts />
