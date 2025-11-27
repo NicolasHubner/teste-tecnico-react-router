@@ -42,7 +42,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<div className='app-container'>
 					<header className='app-header'>
 						<nav className='nav-container'>
-							<h1 className='app-title'>Gerenciador de Produtos</h1>
+							<Link
+								to='/'
+								className='nav-link'>
+								<h1 className='app-title'>Gerenciador de Produtos</h1>
+							</Link>
+
 							<div className='nav-links'>
 								<Link
 									to='/'
@@ -65,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 					<footer
 						className='app-footer'
 						role='contentinfo'>
-						<p>Desafio Técnico Pontua - 2025</p>
+						<span>Feito com muito 💚 por Juan Evangelista | &copy; Desafio Técnico Pontua - 2025</span>
 					</footer>
 				</div>
 				<ScrollRestoration />

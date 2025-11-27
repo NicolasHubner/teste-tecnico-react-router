@@ -16,6 +16,7 @@
  */
 
 import type { Product } from '~/types/Product';
+import React, { useState, useCallback } from 'react';
 
 interface ProductCardProps {
 	product: Product;
@@ -23,9 +24,19 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
 	const { id, name, price, description, category, inStock, image } = product;
-	const handleAddToCart = () => {
+	const [isAdded, setIsAdded] = useState(false);
+
+	const handleAddToCart = useCallback(() => {
 		console.log(`Produto ${name} (ID: ${id}) adicionado ao carrinho`);
-	};
+
+		setIsAdded(true);
+
+		const timer = setTimeout(() => {
+			setIsAdded(false);
+		}, 1000);
+
+		return () => clearTimeout(timer);
+	}, [id, name]);
 
 	const formattedPrice = new Intl.NumberFormat('pt-BR', {
 		style: 'currency',
@@ -43,6 +54,15 @@ export default function ProductCard({ product }: ProductCardProps) {
 			className='product-card'
 			aria-labelledby={`product-name-${id}`}
 			aria-describedby={`product-description-${id}`}>
+			{isAdded && (
+				<div
+					role='status'
+					aria-live='polite'
+					className='product-added'>
+					<p>Produto adicionado ao carrinho!</p>
+				</div>
+			)}
+
 			{image && (
 				<div className='product-image-container'>
 					<img

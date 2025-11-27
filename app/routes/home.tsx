@@ -24,6 +24,7 @@ export default function Home() {
 					className='hero-title'>
 					Bem-vindo ao Gerenciador de Produtos
 				</h1>
+
 				<p className='hero-description'>Sistema de gerenciamento de produtos.</p>
 				<Link
 					to='/products'
