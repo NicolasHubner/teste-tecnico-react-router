@@ -49,6 +49,19 @@ export default function Products() {
     <section
     className="products-container p-6 max-w-6xl mx-auto"
     aria-labelledby="products-title">
+      <nav aria-label="Breadcrumb" className="mb-4">
+    <Link
+      to="/"
+      className="text-gray-600 hover:text-gray-900 text-lg font-medium flex items-center gap-2"
+    >
+      <span aria-hidden="true">←</span>
+      <span>Voltar para Home</span>
+    </Link>
+  </nav>
+
+  <h1 id="products-title" className="text-2xl font-bold mb-4">
+    Nossos Produtos
+  </h1>
    <React.Suspense fallback={<p role="status">Carregando produtos...</p>}>
     <ul
       className="
